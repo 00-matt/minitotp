@@ -6,6 +6,7 @@ project(minitotp
   HOMEPAGE_URL "https://offtopica.uk/projects/minitotp"
   LANGUAGES C)
 
+include(CTest)
 include(GNUInstallDirs)
 
 option(BUILD_MTOTP "Build the mtotp program" ON)

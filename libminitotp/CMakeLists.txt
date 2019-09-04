@@ -13,3 +13,13 @@ install(TARGETS minitotp
 configure_file(minitotp.pc.in minitotp.pc @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/minitotp.pc
   DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
+if(BUILD_TESTING)
+  function(add_minitotp_test name)
+    add_executable(minitotp_test_${name} tests/test_${name}.c)
+    target_link_libraries(minitotp_test_${name} minitotp)
+    add_test(NAME ${name} COMMAND minitotp_test_${name})
+  endfunction()
+
+  add_minitotp_test(rfc6238_table_sha1)
+endif(BUILD_TESTING)
