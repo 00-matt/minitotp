@@ -2,6 +2,7 @@
 #define TEST_COMMON_H_
 
 #include <stdio.h>
+#include <string.h>
 
 #define S2(x) #x
 #define S(x) S2(x)
@@ -22,6 +23,9 @@
   } while (0)
 
 #define TEST_ASSERT_EQ(message, lhs, rhs) TEST_ASSERT(message, lhs == rhs)
+
+#define TEST_ASSERT_STREQ(message, lhs, rhs)                                   \
+  TEST_ASSERT(message, strcmp(lhs, rhs) == 0)
 
 #define TEST_MAIN_END()                                                        \
   printf("%d/%d assertions passed\n", assertions_total - assertions_fail,      \

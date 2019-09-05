@@ -1,8 +1,10 @@
 #include <minitotp.h>
 
+#include <assert.h>
 #include <endian.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include <openssl/evp.h>
@@ -33,8 +35,18 @@ static uint32_t mod(uint32_t truncated, int len) {
   return truncated % mpow10(len);
 }
 
-uint32_t minitotp(const char *secret, uint64_t time) {
+char *mtotp_hotp(const char *secret, uint64_t counter, int length) {
+  assert(length >= 6);
+  char *ret = calloc(length + 1, 1);
+  if (!ret) {
+    return NULL;
+  }
+
   size_t secret_len = strlen(secret);
-  uint64_t interval = htobe64(time / 30);
-  return mod(dynamic_truncate(hmac(secret, secret_len, interval)), 8);
+  counter = htobe64(counter);
+  uint32_t code =
+      mod(dynamic_truncate(hmac(secret, secret_len, counter)), length);
+
+  snprintf(ret, length + 1, "%0*d", length, code);
+  return ret;
 }

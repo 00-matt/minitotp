@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 #include <minitotp.h>
 
 int main(int argc, char **argv) {
   time_t now;
-  uint64_t otp;
+  char *otp;
 
   if (argc != 2) {
     fprintf(stderr, "Usage: %s <secret>\n", argv[0]);
@@ -17,7 +18,12 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  otp = minitotp(argv[1], now);
-  printf("%lu\n", otp);
+  otp = mtotp_totp(argv[1], now, 30, 8);
+  if (!otp) {
+    perror("mtotp_totp");
+    return -1;
+  }
+  printf("%s\n", otp);
+  free(otp);
   return 0;
 }

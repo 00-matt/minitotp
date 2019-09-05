@@ -1,5 +1,6 @@
 add_library(minitotp
-  minitotp.c)
+  hotp.c
+  totp.c)
 set_target_properties(minitotp PROPERTIES
   VERSION ${PROJECT_VERSION}
   SOVERSION ${PROJECT_VERSION_MAJOR}
@@ -21,5 +22,6 @@ if(BUILD_TESTING)
     add_test(NAME ${name} COMMAND minitotp_test_${name})
   endfunction()
 
-  add_minitotp_test(rfc6238_table_sha1)
+  add_minitotp_test(hotp_rfc4226)
+  add_minitotp_test(totp_rfc6238)
 endif(BUILD_TESTING)
