@@ -1,4 +1,4 @@
-add_library(minitotp SHARED
+add_library(minitotp
   minitotp.c)
 set_target_properties(minitotp PROPERTIES
   VERSION ${PROJECT_VERSION}

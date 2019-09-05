@@ -10,6 +10,7 @@ include(CTest)
 include(GNUInstallDirs)
 
 option(BUILD_MTOTP "Build the mtotp program" ON)
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 find_package(OpenSSL REQUIRED)
 
