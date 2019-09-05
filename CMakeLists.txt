@@ -6,11 +6,15 @@ project(minitotp
   HOMEPAGE_URL "https://offtopica.uk/projects/minitotp"
   LANGUAGES C)
 
-include(CTest)
-include(GNUInstallDirs)
-
 option(BUILD_MTOTP "Build the mtotp program" ON)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+option(BUILD_TESTS "Build tests and enable the test target" ON)
+
+include(GNUInstallDirs)
+
+if(BUILD_TESTS)
+  include(CTest)
+endif(BUILD_TESTS)
 
 find_package(OpenSSL REQUIRED)
 
