@@ -8,6 +8,7 @@ set_target_properties(minitotp PROPERTIES
 target_include_directories(minitotp PUBLIC include)
 target_link_libraries(minitotp OpenSSL::Crypto)
 install(TARGETS minitotp
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
