@@ -8,9 +8,9 @@ static const char secret[] = "12345678901234567890";
 
 #define rfc4226_tabletest(count, result)                                       \
   do {                                                                         \
-    char *otp = mtotp_hotp(secret, count, 6);                                  \
+    char otp[7];                                                               \
+    mtotp_hotp(secret, count, 6, otp);                                         \
     TEST_ASSERT_STREQ("count = " S(count), otp, result);                       \
-    free(otp);                                                                 \
   } while (0)
 
 TEST_MAIN_BEGIN()

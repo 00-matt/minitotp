@@ -6,7 +6,7 @@
 
 int main(int argc, char **argv) {
   time_t now;
-  char *otp;
+  char otp[9];
 
   if (argc != 2) {
     fprintf(stderr, "Usage: %s <secret>\n", argv[0]);
@@ -18,12 +18,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  otp = mtotp_totp(argv[1], now, 30, 8);
-  if (!otp) {
-    perror("mtotp_totp");
-    return -1;
-  }
+  mtotp_totp(argv[1], now, 30, 8, otp);
   printf("%s\n", otp);
-  free(otp);
   return 0;
 }

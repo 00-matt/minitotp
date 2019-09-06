@@ -25,11 +25,12 @@ extern "C" {
  *                client and server.
  * @param length Length of the produced one-time password. Must
  *               be at least 6.
+ * @param buf A buffer to store the OTP in. Must be at least
+ *            length + 1 bytes.
  *
- * @return The one-time password as an ASCII string. Must be
- *         freed by the caller. May be NULL if malloc fails.
+ * @return The one-time password as an ASCII string.
  */
-char *mtotp_hotp(const char *secret, uint64_t counter, int length);
+char *mtotp_hotp(const char *secret, uint64_t counter, int length, char *buf);
 
 /**
  * @brief Generate a time-based one-time password.
@@ -43,11 +44,13 @@ char *mtotp_hotp(const char *secret, uint64_t counter, int length);
  * @param time_step How often the OTP changes. Default is 30.
  * @param length Length of the produced one-time password. Must
  *               be at least 6.
+ * @param buf A buffer to store the OTP in. Must be at least
+ *            length + 1 bytes.
  *
- * @return A one-time password as an ASCII string. Must be
- *         freed by the caller . May be NULL if malloc fails.
+ * @return The one-time password as an ASCII string.
  */
-char *mtotp_totp(const char *secret, uint64_t time, int time_step, int length);
+char *mtotp_totp(const char *secret, uint64_t time, int time_step, int length,
+                 char *buf);
 
 #ifdef __cplusplus
 }

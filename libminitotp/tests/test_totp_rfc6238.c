@@ -8,9 +8,9 @@ static const char secret[] = "12345678901234567890";
 
 #define rfc6238_tabletest(time, result)                                        \
   do {                                                                         \
-    char *otp = mtotp_totp(secret, time, 30, 8);                               \
+    char otp[9];                                                               \
+    mtotp_totp(secret, time, 30, 8, otp);                                      \
     TEST_ASSERT_STREQ("time = " S(time), otp, result);                         \
-    free(otp);                                                                 \
   } while (0)
 
 TEST_MAIN_BEGIN()

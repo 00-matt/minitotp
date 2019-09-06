@@ -4,7 +4,6 @@
 #include <endian.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include <openssl/evp.h>
@@ -35,18 +34,14 @@ static uint32_t mod(uint32_t truncated, int len) {
   return truncated % mpow10(len);
 }
 
-char *mtotp_hotp(const char *secret, uint64_t counter, int length) {
+char *mtotp_hotp(const char *secret, uint64_t counter, int length, char *buf) {
   assert(length >= 6);
-  char *ret = calloc(length + 1, 1);
-  if (!ret) {
-    return NULL;
-  }
 
   size_t secret_len = strlen(secret);
   counter = htobe64(counter);
   uint32_t code =
       mod(dynamic_truncate(hmac(secret, secret_len, counter)), length);
 
-  snprintf(ret, length + 1, "%0*d", length, code);
-  return ret;
+  snprintf(buf, length + 1, "%0*d", length, code);
+  return buf;
 }
