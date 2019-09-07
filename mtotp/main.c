@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  mtotp_totp(argv[1], now, time_step, otp_length, otp);
+  mtotp_totp(argv[optind], now, time_step, otp_length, otp);
   printf("%s\n", otp);
   return 0;
 }
