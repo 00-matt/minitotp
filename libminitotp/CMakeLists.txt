@@ -1,5 +1,6 @@
 add_library(minitotp
   hotp.c
+  sha1.c
   totp.c)
 set_target_properties(minitotp PROPERTIES
   VERSION ${PROJECT_VERSION}
@@ -24,5 +25,6 @@ if(BUILD_TESTING)
   endfunction()
 
   add_minitotp_test(hotp_rfc4226)
+  add_minitotp_test(sha1)
   add_minitotp_test(totp_rfc6238)
 endif(BUILD_TESTING)
