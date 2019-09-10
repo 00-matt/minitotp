@@ -4,10 +4,10 @@
 #include <endian.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <string.h>
 
 #include "hmac-sha1.h"
+#include "pad-otp.h"
 
 static uint32_t dynamic_truncate(uint8_t hmac[20]) {
   int o = hmac[19] & 0x0F;
@@ -39,6 +39,7 @@ char *mtotp_hotp(const char *secret, uint64_t counter, int length, char *buf) {
 
   uint32_t code = mod(dynamic_truncate(hmac), length);
 
-  snprintf(buf, length + 1, "%0*d", length, code);
+  pad_otp(code, length, buf);
+
   return buf;
 }

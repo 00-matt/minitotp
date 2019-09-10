@@ -1,4 +1,5 @@
 add_library(minitotp
+  pad-otp.c
   hmac-sha1.c
   hotp.c
   sha1.c
@@ -24,6 +25,7 @@ if(BUILD_TESTING)
     add_test(NAME ${name} COMMAND minitotp_test_${name})
   endfunction()
 
+  add_minitotp_test(pad-otp)
   add_minitotp_test(hmac-sha1)
   add_minitotp_test(hotp_rfc4226)
   add_minitotp_test(sha1)
