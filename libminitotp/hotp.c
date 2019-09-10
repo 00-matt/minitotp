@@ -4,18 +4,12 @@
 #include <endian.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 
-#include <openssl/evp.h>
-#include <openssl/hmac.h>
+#include "hmac-sha1.h"
 
-static char *hmac(const char *key, size_t key_len, uint64_t counter) {
-  // NOTE: Not thread safe
-  return (char *)HMAC(EVP_sha1(), key, key_len, (unsigned char *)&counter,
-                      sizeof(counter), NULL, 0);
-}
-
-static uint32_t dynamic_truncate(char *hmac) {
+static uint32_t dynamic_truncate(uint8_t hmac[20]) {
   int o = hmac[19] & 0x0F;
 
   return (hmac[o] & 0x7F) << 24 | (hmac[o + 1] & 0xff) << 16 |
@@ -39,8 +33,11 @@ char *mtotp_hotp(const char *secret, uint64_t counter, int length, char *buf) {
 
   size_t secret_len = strlen(secret);
   counter = htobe64(counter);
-  uint32_t code =
-      mod(dynamic_truncate(hmac(secret, secret_len, counter)), length);
+  uint8_t hmac[20];
+  hmac_sha1((const uint8_t *)secret, secret_len, (const uint8_t *)&counter,
+            sizeof(counter), hmac);
+
+  uint32_t code = mod(dynamic_truncate(hmac), length);
 
   snprintf(buf, length + 1, "%0*d", length, code);
   return buf;

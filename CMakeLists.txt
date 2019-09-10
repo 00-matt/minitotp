@@ -16,8 +16,6 @@ if(BUILD_TESTS)
   include(CTest)
 endif(BUILD_TESTS)
 
-find_package(OpenSSL REQUIRED)
-
 add_subdirectory(libminitotp)
 
 if(BUILD_MTOTP)
