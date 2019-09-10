@@ -7,6 +7,7 @@
 
 #include "sha1.h"
 
+#include <endian.h>
 #include <string.h>
 
 #define rotl32(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))
