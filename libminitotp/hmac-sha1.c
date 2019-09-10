@@ -4,22 +4,6 @@
 
 #include "sha1.h"
 
-static void fix_key(const uint8_t *key, size_t key_len, uint8_t fixed_key[64]) {
-  memset(fixed_key, 0, 64);
-
-  if (key_len > 64) {
-    struct sha1_ctx ctx;
-    sha1_init(&ctx);
-    sha1_update(&ctx, (const uint8_t *)key, key_len);
-    sha1_finalise(&ctx, fixed_key);
-    return;
-  }
-
-  memcpy(fixed_key, key, key_len > 64 ? 64 : key_len);
-}
-
-#include <stdio.h>
-
 void hmac_sha1(const uint8_t *key, size_t key_len, const uint8_t *message,
                size_t message_len, uint8_t digest[20]) {
   struct sha1_ctx ctx;
