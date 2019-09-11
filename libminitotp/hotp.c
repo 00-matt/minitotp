@@ -1,11 +1,11 @@
 #include <minitotp.h>
 
 #include <assert.h>
-#include <endian.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
 
+#include "bits.h"
 #include "hmac-sha1.h"
 #include "pad-otp.h"
 

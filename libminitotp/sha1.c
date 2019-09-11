@@ -7,8 +7,9 @@
 
 #include "sha1.h"
 
-#include <endian.h>
 #include <string.h>
+
+#include "bits.h"
 
 #define rotl32(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))
 
@@ -19,7 +20,7 @@
 #elif BYTE_ORDER == BIG_ENDIAN
 #define blk0(i) block->l[i]
 #else
-#error "Undefined BYTE_ORDER"
+#error "Unknown byte order"
 #endif
 
 #define blk(i)                                                                 \
