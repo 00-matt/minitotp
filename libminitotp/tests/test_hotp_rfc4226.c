@@ -1,5 +1,3 @@
-#include <stdlib.h>
-
 #include <minitotp.h>
 
 #include "test_common.h"

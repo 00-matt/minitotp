@@ -1,5 +1,3 @@
-#include <stdlib.h>
-
 #include "../pad-otp.h"
 #include "test_common.h"
 
