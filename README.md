@@ -26,12 +26,12 @@ apt install \
 # Download source via Git and optionally checkout a specific tag
 git clone https://github.com/00-matt/minitotp.git
 cd minitotp
-git checkout v2.0.1
+git checkout v2.0.2
 
 # OR download a source tarball
-curl -sfLo minitotp-2.0.1.tar.gz https://github.com/00-matt/minitotp/archive/v2.0.1.tar.gz
-tar -xf minitotp-2.0.1.tar.gz
-cd minitotp-2.0.1
+curl -sfLo minitotp-2.0.2.tar.gz https://github.com/00-matt/minitotp/archive/v2.0.2.tar.gz
+tar -xf minitotp-2.0.2.tar.gz
+cd minitotp-2.0.2
 
 # Create build directory and generate build files
 mkdir build
