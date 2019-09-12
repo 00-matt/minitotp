@@ -158,7 +158,8 @@ static void sha1_transform(uint32_t state[5], const uint8_t buffer[64]) {
   state[4] += e;
 }
 
-void sha1_update(struct sha1_ctx *ctx, const uint8_t *input, size_t input_len) {
+void sha1_update(struct sha1_ctx *ctx, const uint8_t *input,
+                 uint32_t input_len) {
   uint32_t i;
   uint32_t j;
 

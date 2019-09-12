@@ -1,7 +1,6 @@
 #ifndef MINITOTP_SHA1_H_
 #define MINITOTP_SHA1_H_
 
-#include <stddef.h>
 #include <stdint.h>
 
 struct sha1_ctx {
@@ -12,7 +11,8 @@ struct sha1_ctx {
 
 void sha1_init(struct sha1_ctx *ctx);
 
-void sha1_update(struct sha1_ctx *ctx, const uint8_t *input, size_t input_len);
+void sha1_update(struct sha1_ctx *ctx, const uint8_t *input,
+                 uint32_t input_len);
 
 void sha1_finalise(struct sha1_ctx *ctx, uint8_t digest[20]);
 

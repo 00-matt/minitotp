@@ -12,8 +12,9 @@
 static uint32_t dynamic_truncate(uint8_t hmac[20]) {
   int o = hmac[19] & 0x0F;
 
-  return (hmac[o] & 0x7F) << 24 | (hmac[o + 1] & 0xff) << 16 |
-         (hmac[o + 2] & 0xff) << 8 | (hmac[o + 3] & 0xff);
+  return ((uint32_t)(hmac[o] & 0x7F)) << 24 |
+         ((uint32_t)(hmac[o + 1] & 0xff)) << 16 | (hmac[o + 2] & 0xff) << 8 |
+         (hmac[o + 3] & 0xff);
 }
 
 static uint32_t mpow10(uint32_t n) {
