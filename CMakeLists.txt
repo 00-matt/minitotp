@@ -13,6 +13,7 @@ option(BUILD_TESTS "Build tests and enable the test target" ON)
 include(GNUInstallDirs)
 
 if(BUILD_TESTS)
+  find_program(BASH_PROGRAM bash)
   include(CTest)
 endif(BUILD_TESTS)
 
