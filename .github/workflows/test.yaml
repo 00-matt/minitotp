@@ -1,0 +1,32 @@
+name: Run Tests
+on: [push, pull_request]
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc, clang]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt update -qq
+          sudo apt install -y \
+            ${{ matrix.compiler }} \
+            cmake \
+            make
+      - name: Configure
+        run: |
+          cmake \
+            -Bbuild \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_C_COMPILER=${{ matrix.compiler }} \
+            -DBUILD_MTOTP=On \
+            -DBUILD_TESTS=On
+      - name: Compile
+        run: make -Cbuild all
+      - name: Test
+        run: make -Cbuild test 
