@@ -29,10 +29,11 @@ static uint32_t mod(uint32_t truncated, int len) {
   return truncated % mpow10(len);
 }
 
-char *mtotp_hotp(const char *secret, uint64_t counter, int length, char *buf) {
+char *mtotp_hotp_l(const char *secret, size_t secret_len, uint64_t counter,
+                   int length, char *buf) {
+  assert(secret_len > 0);
   assert(length >= 6);
 
-  size_t secret_len = strlen(secret);
   counter = htobe64(counter);
   uint8_t hmac[20];
   hmac_sha1((const uint8_t *)secret, secret_len, (const uint8_t *)&counter,
@@ -43,4 +44,9 @@ char *mtotp_hotp(const char *secret, uint64_t counter, int length, char *buf) {
   pad_otp(code, length, buf);
 
   return buf;
+}
+
+char *mtotp_hotp(const char *secret, uint64_t counter, int length, char *buf) {
+  const size_t secret_len = strlen(secret);
+  return mtotp_hotp_l(secret, secret_len, counter, length, buf);
 }
